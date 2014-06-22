@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aquent.crudapp.data.dao.ClientDao;
 import com.aquent.crudapp.domain.Client;
-import com.aquent.crudapp.domain.Person;
 
 public class DefaultClientService implements ClientService {
 
@@ -30,7 +29,7 @@ public class DefaultClientService implements ClientService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Client> listClient() {
+    public List<Client> listClients() {
         return clientDao.listClients();
     }
 

@@ -1,6 +1,8 @@
 package com.aquent.crudapp.data.dao;
 
 import com.aquent.crudapp.domain.Client;
+import com.aquent.crudapp.domain.Person;
+
 import java.util.List;
 
 /**
@@ -44,4 +46,12 @@ public interface ClientDao {
      * @param id the person ID
      */
     void deleteClient(Integer id);
+    
+//    /**
+//     * Retrieves people associated with existing client record
+//     * 
+//     * @param clientId
+//     * @return list of people
+//     */
+//    List<Person> readContacts(Integer clientId);
 }

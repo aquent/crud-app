@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aquent.crudapp.domain.Person;
+import com.aquent.crudapp.service.ClientService;
 import com.aquent.crudapp.service.PersonService;
 
 /**
@@ -25,6 +26,7 @@ public class PersonController {
     public static final String COMMAND_DELETE = "Delete";
 
     @Inject private PersonService personService;
+    @Inject private ClientService clientService;
 
     /**
      * Renders the listing page.
@@ -47,6 +49,7 @@ public class PersonController {
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("person/create");
         mav.addObject("person", new Person());
+        mav.addObject("clients", clientService.listClients());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -68,6 +71,7 @@ public class PersonController {
         } else {
             ModelAndView mav = new ModelAndView("person/create");
             mav.addObject("person", person);
+            mav.addObject("clients", clientService.listClients());
             mav.addObject("errors", errors);
             return mav;
         }
@@ -83,6 +87,7 @@ public class PersonController {
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
         mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("clients", clientService.listClients());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -104,6 +109,7 @@ public class PersonController {
         } else {
             ModelAndView mav = new ModelAndView("person/edit");
             mav.addObject("person", person);
+            mav.addObject("clients", clientService.listClients());
             mav.addObject("errors", errors);
             return mav;
         }

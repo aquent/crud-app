@@ -6,7 +6,8 @@ CREATE TABLE person (
     street_address varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
     state varchar(2) NOT NULL,
-    zip_code varchar(5) NOT NULL
+    zip_code varchar(5) NOT NULL,
+    client_id integer NOT NULL
 );
 CREATE TABLE client (
     client_id integer IDENTITY,
@@ -17,10 +18,4 @@ CREATE TABLE client (
     city varchar(50) NOT NULL,
     state varchar(2) NOT NULL,
     zip_code varchar(5) NOT NULL
-);
-CREATE TABLE person_client (
-    person_id integer IDENTITY,
-    client_id integer NOT NULL,
-    FOREIGN KEY person_id REFERENCES person(person_id),
-    FOREIGN KEY client_id REFERENCES client(client_id)
 );

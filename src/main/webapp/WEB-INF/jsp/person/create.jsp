@@ -33,6 +33,9 @@
             <label for="lastName">Last Name:</label>
             <input type="text" name="lastName" value="${person.lastName}"/>
             <br/>
+            <label for="clientId">Client:</label>
+            <input type="text" name="clientId" value="${person.clientId}"/>
+            <br/>
             <label for="emailAddress">Email Address:</label>
             <input type="text" name="emailAddress" value="${person.emailAddress}"/>
             <br/>
@@ -47,6 +50,9 @@
             <br/>
             <label for="zipCode">Zip Code:</label>
             <input type="text" name="zipCode" value="${person.zipCode}"/>
+            <br/>
+            <label for="clientId">Client:</label>
+            <input type="text" name="clientId" value="${person.clientId}"/>
             <br/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>

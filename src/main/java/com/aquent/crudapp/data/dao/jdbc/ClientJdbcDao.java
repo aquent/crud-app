@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aquent.crudapp.data.dao.ClientDao;
 import com.aquent.crudapp.domain.Client;
+import com.aquent.crudapp.domain.Person;
 
 
 /**
@@ -31,6 +33,9 @@ public class ClientJdbcDao implements ClientDao {
                                                   + " VALUES (:companyName, :uri, :phone, :streetAddress, :city, :state, :zipCode)";
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
+//    private RowMapper<Client> clientMapper = new BeanPropertyRowMapper<Client>(Client.class);
+    private ClientRowMapper clientMapper = new ClientRowMapper();
 
     public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -39,7 +44,7 @@ public class ClientJdbcDao implements ClientDao {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Client> listClients() {
-        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_CLIENTS, new ClientRowMapper());
+        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_CLIENTS, clientMapper);
     }
 
     @Override
@@ -87,4 +92,19 @@ public class ClientJdbcDao implements ClientDao {
             return client;
         }
     }
+
+    
+//    @Override
+//    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+//    public List<Person> listPeople(Integer clientId) {
+//        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_CLIENTS, new BeanPropertyRowMapper<Person>(Person.class));
+//    }
+
+//    public RowMapper<Client> getClientMapper() {
+//        return clientMapper;
+//    }
+//
+//    public void setClientMapper(RowMapper<Client> clientMapper) {
+//        this.clientMapper = clientMapper;
+//    }
 }

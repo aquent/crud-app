@@ -34,6 +34,9 @@
             <label for="lastName">Last Name:</label>
             <input type="text" name="lastName" value="${person.lastName}"/>
             <br/>
+            <label for="clientId">Client:</label>
+            <input type="text" name="clidntId" value="${person.clientId}"/>
+            <br/>
             <label for="emailAddress">Email Address:</label>
             <input type="text" name="emailAddress" value="${person.emailAddress}"/>
             <br/>
