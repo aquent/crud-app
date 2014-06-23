@@ -6,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
-<c:set var="title" value="Person Listing"/>
+<c:set var="title" value="Client Listing"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
     <p><a href="${context}/person/create"><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
@@ -16,21 +16,19 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email Address</th>
+                        <th>Company Name</th>
+                        <th>Phone</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${persons}" var="person">
+                    <c:forEach items="${clients}" var="client">
                         <tr>
-                            <td>${person.firstName}</td>
-                            <td>${person.lastName}</td>
-                            <td>${person.emailAddress}</td>
+                            <td><a href="${client.uri}">${client.companyName}</a></td>
+                            <td>${client.phone}</td>
                             <td>
-                                <a href="${context}/person/edit/${person.personId}"><img src="${context}/resources/images/edit-icon.png" alt="edit"></a>
-                                <a href="${context}/person/delete/${person.personId}"><img src="${context}/resources/images/delete-icon.png" alt="delete"></a>
+                                <a href="${context}/client/edit/${client.clientId}"><img src="${context}/resources/images/edit-icon.png" alt="edit"></a>
+                                <a href="${context}/client/delete/${client.clientId}"><img src="${context}/resources/images/delete-icon.png" alt="delete"></a>
                             </td>
                         </tr>
                     </c:forEach>
