@@ -27,7 +27,12 @@
     <input type="text" name="lastName" value="${person.lastName}"/>
     <br/>
     <label for="clientId">Client:</label>
-    <input type="text" name="clientId" value="${person.clientId}"/>
+    <select name="clientId">
+        <option>Select One</option>
+        <c:forEach items="${clients}" var="client">
+        <option value="${client.clientId}">${client.companyName}</option>
+        </c:forEach>
+    </select>
     <br/>
     <label for="emailAddress">Email Address:</label>
     <input type="text" name="emailAddress" value="${person.emailAddress}"/>

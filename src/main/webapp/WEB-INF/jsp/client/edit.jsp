@@ -19,30 +19,129 @@
         </c:forEach>
     </ul>
 </c:if>
-<form action="${context}/client/edit" method="POST">
+<form name="clientForm" action="${context}/client/edit" method="POST" class="col-xs-6 form-horizontal">
     <input type="hidden" name="clientId" value="${client.clientId}"/>
     <br/>
-    <label for="companyName">Company Name:</label>
-    <input type="text" name="companyName" value="${client.companyName}"/>
+    <div class="form-group">
+      <label for="companyName" class="col-xs-4 control-label">Company Name:</label>
+      <div class="col-xs-8">
+        <input type="text" name="companyName" value="${client.companyName}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="uri" class="col-xs-4 control-label">URL:</label>
+      <div class="col-xs-8">
+        <input type="text" name="uri" value="${client.uri}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone" class="col-xs-4 control-label">Phone:</label>
+      <div class="col-xs-8">
+        <input type="text" name="phone" value="${client.phone}" class="form-control"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="streetAddress" class="col-xs-4 control-label">Street Address:</label>
+      <div class="col-xs-8">
+        <input type="text" name="streetAddress" value="${client.streetAddress}" class="form-control"/>
+      </div>
+    <label for="city" class="col-xs-4 control-label">City:</label>
+      <div class="col-xs-8">
+        <input type="text" name="city" value="${client.city}" class="form-control"/>
+      </div>
+    <label for="state" class="col-xs-4 control-label">State:</label>
+      <div class="col-xs-2">
+        <input type="text" name="state" value="${client.state}" class="form-control"/>
+      </div>
+      <label for="zipCode" class="col-xs-3 control-label">Zip Code:</label>
+      <div class="col-xs-3">
+        <input type="text" name="zipCode" value="${client.zipCode}" class="form-control"/>
+      </div>
     <br/>
-    <label for="uri">URL:</label>
-    <input type="text" name="uri" value="${client.uri}"/>
-    <br/>
-    <label for="phone">Phone:</label>
-    <input type="text" name="phone" value="${client.phone}"/>
-    <br/>
-    <label for="streetAddress">Street Address:</label>
-    <input type="text" name="streetAddress" value="${client.streetAddress}"/>
-    <br/>
-    <label for="city">City:</label>
-    <input type="text" name="city" value="${client.city}"/>
-    <br/>
-    <label for="state">State:</label>
-    <input type="text" name="state" value="${client.state}"/>
-    <br/>
-    <label for="zipCode">Zip Code:</label>
-    <input type="text" name="zipCode" value="${client.zipCode}"/>
-    <br/>
-    <input type="submit" name="Submit" value="Submit"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <c:set var="js">onclick="window.open(this.href, 'create person', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"</c:set>
 </form>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<div class="col-xs-6">
+<h2>Contacts</h2>
+<p><a href="${context}/person/create" ${js}><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
+<c:choose>
+    <c:when test="${fn:length(persons) gt 0}">
+      <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${persons}" var="person">
+                    <tr>
+                        <td>${person.firstName}</td>
+                        <td>${person.lastName}</td>
+                        <td>${person.emailAddress}</td>
+                        <td><form action="${context}/person/edit" method="POST">
+                            <input type="hidden" name="clientId" value=""/>
+                            <input type="hidden" name="personId" value="${person.personId}"/>
+                            <input type="hidden" name="firstName" value="${person.firstName}"/>
+                            <input type="hidden" name="lastName" value="${person.lastName}"/>
+                            <input type="hidden" name="emailAddress" value="${person.emailAddress}"/>
+                            <input type="hidden" name="streetAddress" value="${person.streetAddress}"/>
+                            <input type="hidden" name="city" value="${person.city}"/>
+                            <input type="hidden" name="state" value="${person.state}"/>
+                            <input type="hidden" name="zipCode" value="${person.zipCode}"/>
+                            <input type="image" src="${context}/resources/images/delete-icon.png" alt="remove association" onclick="this.form.target='_blank';return true;">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+      </div>
+    </c:when>
+    <c:otherwise>
+        <p>No results found.</p>
+    </c:otherwise>
+</c:choose>
+</div>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+
+<script src="${context}/resources/js/jquery.validate.min.js"></script>
+<script src="${context}/resources/js/additional-methods.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#clientForm").validate({
+ 
+   rules: {
+     companyName: "required",
+     uri: {
+         required: true,
+         url: true
+     },
+     phone: {
+         required: true,
+         phoneUS: true
+     },
+     streetAddress: "required",
+     city: "required",
+     state: {
+         required: true,
+         minlength: 2,
+         maxlength: 2
+     },
+     zipCode: "required"
+},
+   messages: {
+     companyName: "required",
+     uri: {
+        required: "required",
+        uri: "Not valid URL format"
+     }
+
+});
+});
+</script>

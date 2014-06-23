@@ -11,8 +11,7 @@ public class Person {
 
     private Integer personId;
     
-    @NotNull
-    @Min(value = 0, message = "Client is required")
+    @Min(value = 1, message = "Invalid client")
     private Integer clientId;
 
     @NotNull

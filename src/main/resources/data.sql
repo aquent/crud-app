@@ -40,7 +40,7 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    0
+    1
 ), (
     'Jane',
     'Smith',
@@ -49,7 +49,7 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    0
+    1
 ), (
     'Sam',
     'Smith',
@@ -58,5 +58,5 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    0
+    1
 );
