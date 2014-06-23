@@ -1,10 +1,12 @@
 package com.aquent.crudapp.data.dao.jdbc;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,6 +24,7 @@ import com.aquent.crudapp.domain.Person;
 public class PersonJdbcDao implements PersonDao {
 
     private static final String SQL_LIST_PEOPLE = "SELECT * FROM person ORDER BY first_name, last_name, person_id";
+    private static final String SQL_LIST_CLIENT_PEOPLE = "SELECT * FROM person WHERE client_id = :clientId ORDER BY first_name, last_name, person_id";
     private static final String SQL_READ_PERSON = "SELECT * FROM person WHERE person_id = :personId";
     private static final String SQL_DELETE_PERSON = "DELETE FROM person WHERE person_id = :personId";
     private static final String SQL_UPDATE_PERSON = "UPDATE person SET (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
@@ -32,7 +35,7 @@ public class PersonJdbcDao implements PersonDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public void setNamedParameterJdbcTemplate(final NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
@@ -42,27 +45,39 @@ public class PersonJdbcDao implements PersonDao {
         return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_PEOPLE, new PersonRowMapper());
     }
 
+
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Person readPerson(Integer personId) {
+    public List<Person> listPeople(final Integer clientId) {
+        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_CLIENT_PEOPLE, 
+                new PreparedStatementSetter() {
+            public void setValues(PreparedStatement ps) throws SQLException {
+              ps.setInt(1, clientId);
+            }
+          }, new PersonRowMapper());
+    }
+    
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Person readPerson(final Integer personId) {
         return namedParameterJdbcTemplate.queryForObject(SQL_READ_PERSON, Collections.singletonMap("personId", personId), new PersonRowMapper());
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
-    public void deletePerson(Integer personId) {
+    public void deletePerson(final Integer personId) {
         namedParameterJdbcTemplate.update(SQL_DELETE_PERSON, Collections.singletonMap("personId", personId));
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
-    public void updatePerson(Person person) {
+    public void updatePerson(final Person person) {
         namedParameterJdbcTemplate.update(SQL_UPDATE_PERSON, new BeanPropertySqlParameterSource(person));
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
-    public Integer createPerson(Person person) {
+    public Integer createPerson(final Person person) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(SQL_CREATE_PERSON, new BeanPropertySqlParameterSource(person), keyHolder);
         return keyHolder.getKey().intValue();

@@ -14,6 +14,14 @@ INSERT INTO client (
     'Asheville',
     'NC',
     '28801'
+), (
+    'Fake Twitter',
+    'http://www.faketwitter.com',
+    '(555) 322-1232',
+    '123 Another St.',
+    'San Jose',
+    'CA',
+    '29090'
 );
 INSERT INTO person (
     first_name,
@@ -32,7 +40,7 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    1
+    0
 ), (
     'Jane',
     'Smith',
@@ -41,5 +49,14 @@ INSERT INTO person (
     'Asheville',
     'NC',
     '28801',
-    1
+    0
+), (
+    'Sam',
+    'Smith',
+    'fake1@twitter.com',
+    '123 Any St.',
+    'Asheville',
+    'NC',
+    '28801',
+    0
 );

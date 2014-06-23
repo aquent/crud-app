@@ -17,6 +17,13 @@ public interface PersonService {
     List<Person> listPeople();
 
     /**
+     * Retrieves all of the person records associated with a client.
+     *
+     * @return list of person records
+     */
+    List<Person> listPeople(Integer clientId);
+
+    /**
      * Creates a new person record.
      *
      * @param person the values to save

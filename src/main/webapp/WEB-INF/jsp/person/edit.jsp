@@ -29,7 +29,11 @@
     <input type="text" name="lastName" value="${person.lastName}"/>
     <br/>
     <label for="clientId">Client:</label>
-    <input type="text" name="clidntId" value="${person.clientId}"/>
+    <select name="clientId">
+        <c:forEach items="${clients}" var="client">
+        <option value="${client.clientId}" <c:if test="${client.clientId==person.clientId}">selected</c:if>>${client.companyName}</option>
+        </c:forEach>
+    </select>
     <br/>
     <label for="emailAddress">Email Address:</label>
     <input type="text" name="emailAddress" value="${person.emailAddress}"/>

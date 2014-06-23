@@ -9,7 +9,7 @@
 <c:set var="title" value="Client Listing"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
-    <p><a href="${context}/person/create"><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
+    <p><a href="${context}/client/create"><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
     <c:choose>
         <c:when test="${fn:length(clients) gt 0}">
           <div class="table-responsive">
