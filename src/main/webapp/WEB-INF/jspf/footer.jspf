@@ -1,0 +1,11 @@
+      <!-- jQuery -->
+      <script src="${context}/resources/js/jquery-1.9.1.min.js"></script>
+      <!-- jQuery validator -->
+      <script src="${context}/resources/js/jquery.validate.min.js"></script>
+      <script src="${context}/resources/js/additional-methods.min.js"></script>
+      <!-- Bootstrap -->
+      <script src="${context}/resources/bootstrap/js/bootstrap.min.js"></script>
+      ${script}
+    </div>
+  </body>
+</html>

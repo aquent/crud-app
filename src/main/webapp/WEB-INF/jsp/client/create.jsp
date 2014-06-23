@@ -7,7 +7,7 @@
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:set var="title" value="Create Person"/>
+<c:set var="title" value="Create Client"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 <c:if test="${fn:length(errors) gt 0}">
@@ -18,36 +18,28 @@
         </c:forEach>
     </ul>
 </c:if>
-<form action="${context}/person/create" method="POST">
+<form action="${context}/client/create" method="POST">
     <br/>
-    <label for="firstName">First Name:</label>
-    <input type="text" name="firstName" value="${person.firstName}"/>
+    <label for="companyName">Company Name:</label>
+    <input type="text" name="companyName" value="${client.companyName}"/>
     <br/>
-    <label for="lastName">Last Name:</label>
-    <input type="text" name="lastName" value="${person.lastName}"/>
+    <label for="uri">URL:</label>
+    <input type="text" name="uri" value="${client.uri}"/>
     <br/>
-    <label for="clientId">Client:</label>
-    <select name="clientId">
-        <option>Select One</option>
-        <c:forEach items="${clients}" var="client">
-        <option value="${client.clientId}">${client.companyName}</option>
-        </c:forEach>
-    </select>
-    <br/>
-    <label for="emailAddress">Email Address:</label>
-    <input type="text" name="emailAddress" value="${person.emailAddress}"/>
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" value="${client.phone}"/>
     <br/>
     <label for="streetAddress">Street Address:</label>
-    <input type="text" name="streetAddress" value="${person.streetAddress}"/>
+    <input type="text" name="streetAddress" value="${client.streetAddress}"/>
     <br/>
     <label for="city">City:</label>
-    <input type="text" name="city" value="${person.city}"/>
+    <input type="text" name="city" value="${client.city}"/>
     <br/>
     <label for="state">State:</label>
-    <input type="text" name="state" value="${person.state}"/>
+    <input type="text" name="state" value="${client.state}"/>
     <br/>
     <label for="zipCode">Zip Code:</label>
-    <input type="text" name="zipCode" value="${person.zipCode}"/>
+    <input type="text" name="zipCode" value="${client.zipCode}"/>
     <br/>
     <input type="submit" name="Submit" value="Submit"/>
 </form>
