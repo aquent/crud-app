@@ -6,6 +6,7 @@ This is a code test for Aquent. Most requirements are minimally met, but not all
 
 Further development on this app is not anticipated, but here are the things I would do next if this were a real application.
 
+- The UI for editing client contacts is pretty bad; ajaxy updates would be much nicer, now you need to refresh the page to see them
 - Add unit tests on the service objects with JUnit
 - Add integration tests with a framework like Selenium; especially test edge cases on form submissions - very little manual testing has been done
 - Add form validation to client create, person create, and person edit; use a service to validate addresses

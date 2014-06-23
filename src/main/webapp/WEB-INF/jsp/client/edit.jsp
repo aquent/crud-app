@@ -187,7 +187,6 @@ $(document).ready(function(){
      }
    }
 });
-console.log('after validator');
 });
 </script>
 </c:set>

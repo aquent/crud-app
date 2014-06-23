@@ -8,8 +8,8 @@
 <%@taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
 <c:set var="title" value="Person Listing"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
-<p><a href="${context}/person/create"><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
+<p><a href="${context}/person/create"><img src="${context}/resources/images/add-icon.png" alt="create"></a></p>
 <c:choose>
     <c:when test="${fn:length(persons) gt 0}">
       <div class="table-responsive">
