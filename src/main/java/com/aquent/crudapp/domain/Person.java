@@ -2,6 +2,7 @@ package com.aquent.crudapp.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
 
 /**
  * The person entity corresponding to the "person" table in the database.
@@ -11,7 +12,7 @@ public class Person {
     private Integer personId;
     
     @NotNull
-    @Size(min = 1, message = "Client is required")
+    @Min(value = 0, message = "Client is required")
     private Integer clientId;
 
     @NotNull
