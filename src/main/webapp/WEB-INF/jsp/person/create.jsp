@@ -11,12 +11,12 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create Person</title>
-    </head>
+    <c:set var="title" value="Create Person"/>
+    <c:set var="context" value="${pageContext.request.contextPath}"/>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
     <body>
-        <h1>Create Person</h1>
+      <div class="container-fluid">
+        <h1>${title}</h1>
         <c:if test="${fn:length(errors) gt 0}">
             <p>Please correct the following errors in your submission:</p>
             <ul>
@@ -25,7 +25,7 @@
                 </c:forEach>
             </ul>
         </c:if>
-        <form action="${pageContext.request.contextPath}/person/create" method="POST">
+        <form action="${context}/person/create" method="POST">
             <br/>
             <label for="firstName">First Name:</label>
             <input type="text" name="firstName" value="${person.firstName}"/>
@@ -51,10 +51,9 @@
             <label for="zipCode">Zip Code:</label>
             <input type="text" name="zipCode" value="${person.zipCode}"/>
             <br/>
-            <label for="clientId">Client:</label>
-            <input type="text" name="clientId" value="${person.clientId}"/>
-            <br/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
+      </div>
+    <%@ include file="/WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

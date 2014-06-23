@@ -84,8 +84,7 @@ public class PersonJdbcDao implements PersonDao {
             person.setCity(rs.getString("city"));
             person.setState(rs.getString("state"));
             person.setZipCode(rs.getString("zip_code"));
-            int clientId = rs.getInt("client_id");
-            if (clientId > 0) person.setClientId(clientId);
+            person.setClientId(rs.getInt("client_id"));
             return person;
         }
     }
