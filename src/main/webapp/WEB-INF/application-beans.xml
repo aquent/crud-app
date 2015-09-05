@@ -27,6 +27,17 @@
   <bean id="validator"
         class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
+  <bean id="companyDao" class="com.aquent.crudapp.data.dao.jdbc.CompanyJdbcDao">
+    <property name="namedParameterJdbcTemplate">
+      <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" c:classicJdbcTemplate-ref="jdbcTemplate" />
+    </property>
+  </bean>
+
+  <bean id="companyService"
+        class="com.aquent.crudapp.service.DefaultCompanyService"
+        p:companyDao-ref="companyDao"
+        p:validator-ref="validator" />
+
   <bean id="personDao" class="com.aquent.crudapp.data.dao.jdbc.PersonJdbcDao">
     <property name="namedParameterJdbcTemplate">
       <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" c:classicJdbcTemplate-ref="jdbcTemplate" />
