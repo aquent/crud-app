@@ -36,6 +36,7 @@
                                 <td>${person.lastName}</td>
                                 <td>${person.emailAddress}</td>
                                 <td>
+                                    <a href="${pageContext.request.contextPath}/person/view/${person.personId}">View Person</a>
                                     <a href="${pageContext.request.contextPath}/person/edit/${person.personId}">Edit Person</a>
                                     <a href="${pageContext.request.contextPath}/person/delete/${person.personId}">Delete Person</a>
                                 </td>

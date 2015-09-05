@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aquent.crudapp.domain.Person;
+import com.aquent.crudapp.service.CompanyService;
 import com.aquent.crudapp.service.PersonService;
 
 /**
@@ -24,6 +25,7 @@ public class PersonController {
 
     public static final String COMMAND_DELETE = "Delete";
 
+    @Inject private CompanyService companyService;
     @Inject private PersonService personService;
 
     /**
@@ -39,6 +41,24 @@ public class PersonController {
     }
 
     /**
+     * Renders the person page.
+     *
+     * @return list view populated with the current list of people
+     */
+    @RequestMapping(value = "view/{personId}", method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable Integer personId) {
+        ModelAndView mav = new ModelAndView("person/view");
+
+        Person person = personService.readPerson(personId);
+
+        mav.addObject("person", person);
+        if (person.getCompanyId() != null) {
+        	mav.addObject("company", companyService.readCompany(person.getCompanyId()));
+        }
+        return mav;
+    }
+
+    /**
      * Renders an empty form used to create a new person record.
      *
      * @return create view populated with an empty person
@@ -47,6 +67,7 @@ public class PersonController {
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("person/create");
         mav.addObject("person", new Person());
+        mav.addObject("companies", companyService.listCompanies());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -83,6 +104,7 @@ public class PersonController {
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
         mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("companies", companyService.listCompanies());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
