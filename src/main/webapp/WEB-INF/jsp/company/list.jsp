@@ -30,6 +30,7 @@
                                 <td>${company.website}</td>
                                 <td>${company.phoneNumber}</td>
                                 <td>
+                                    <a href="${pageContext.request.contextPath}/company/view/${company.companyId}">View Company</a>
                                     <a href="${pageContext.request.contextPath}/company/edit/${company.companyId}">Edit Company</a>
                                     <a href="${pageContext.request.contextPath}/company/delete/${company.companyId}">Delete Company</a>
                                 </td>

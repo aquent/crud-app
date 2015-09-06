@@ -49,7 +49,7 @@
             <label for="zipCode">Zip Code:</label>
             <input type="text" name="zipCode" value="${person.zipCode}"/>
             <br/>
-            <label for="companyId">Company:</label>
+            <label for="companyId">Client:</label>
             <select name="companyId">
             	<option value="">None</option>
             	<c:forEach items="${companies}" var="company">

@@ -1,7 +1,9 @@
 package com.aquent.crudapp.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aquent.crudapp.domain.Company;
+import com.aquent.crudapp.domain.Person;
 import com.aquent.crudapp.service.CompanyService;
+import com.aquent.crudapp.service.PersonService;
 
 /**
  * Controller for handling basic company management operations.
@@ -25,6 +29,7 @@ public class CompanyController {
     public static final String COMMAND_DELETE = "Delete";
 
     @Inject private CompanyService companyService;
+    @Inject private PersonService personService;
 
     /**
      * Renders the listing page.
@@ -39,6 +44,29 @@ public class CompanyController {
     }
 
     /**
+     * Renders the company page.
+     *
+     * @param companyId the ID of the company to view
+     * @return view view populated from the company record
+     */
+    @RequestMapping(value = "view/{companyId}", method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable Integer companyId) {
+        ModelAndView mav = new ModelAndView("company/view");
+        Company company = companyService.readCompany(companyId);
+        mav.addObject("company", company);
+        if (company.getPersonIds() != null && !company.getPersonIds().isEmpty()) {
+        	final List<Person> people = new ArrayList<>();
+
+        	for (Integer personId : company.getPersonIds()) {
+        		people.add(personService.readPerson(personId));
+			}
+
+        	mav.addObject("people", people);
+        }
+        return mav;
+    }
+
+    /**
      * Renders an empty form used to create a new company record.
      *
      * @return create view populated with an empty company
@@ -47,6 +75,7 @@ public class CompanyController {
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("company/create");
         mav.addObject("company", new Company());
+        mav.addObject("people", personService.listPeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -82,7 +111,16 @@ public class CompanyController {
     @RequestMapping(value = "edit/{companyId}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable Integer companyId) {
         ModelAndView mav = new ModelAndView("company/edit");
-        mav.addObject("company", companyService.readCompany(companyId));
+        Company company = companyService.readCompany(companyId);
+        mav.addObject("company", company);
+
+        Map<Integer, Integer> selectedPeople = new HashMap<>();
+        for (Integer personId : company.getPersonIds()) {
+			selectedPeople.put(personId, personId);
+		}
+        mav.addObject("selectedPeople", selectedPeople);
+
+        mav.addObject("people", personService.listPeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }

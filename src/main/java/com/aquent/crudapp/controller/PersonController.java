@@ -43,7 +43,8 @@ public class PersonController {
     /**
      * Renders the person page.
      *
-     * @return list view populated with the current list of people
+     * @param personId the ID of the person to view
+     * @return view view populated from the person record
      */
     @RequestMapping(value = "view/{personId}", method = RequestMethod.GET)
     public ModelAndView view(@PathVariable Integer personId) {

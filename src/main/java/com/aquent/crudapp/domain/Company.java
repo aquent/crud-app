@@ -1,5 +1,7 @@
 package com.aquent.crudapp.domain;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,6 +41,8 @@ public class Company {
     @NotNull
     @Size(min = 5, max = 5, message = "Zip code is required with length 5")
     private String zipCode;
+
+    private List<Integer> personIds;
 
 	public Integer getCompanyId() {
 		return companyId;
@@ -102,6 +106,14 @@ public class Company {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public List<Integer> getPersonIds() {
+		return personIds;
+	}
+
+	public void setPersonIds(List<Integer> personIds) {
+		this.personIds = personIds;
 	}
 
 }
