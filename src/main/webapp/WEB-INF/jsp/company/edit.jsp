@@ -46,7 +46,7 @@
             <label for="personIds">Contacts:</label>
             <select name="personIds" multiple size="5">
             	<c:forEach items="${people}" var="person">
-            	<option value="${person.personId}" ${not empty selectedPeople[person.personId]  ? 'selected' : ''}>
+            	<option value="${person.personId}" ${company.personIds.contains(person.personId)  ? 'selected' : ''}>
             		<c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/>
             	</option>
             	</c:forEach>

@@ -1,9 +1,7 @@
 package com.aquent.crudapp.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -97,6 +95,7 @@ public class CompanyController {
         } else {
             ModelAndView mav = new ModelAndView("company/create");
             mav.addObject("company", company);
+            mav.addObject("people", personService.listPeople());
             mav.addObject("errors", errors);
             return mav;
         }
@@ -113,13 +112,6 @@ public class CompanyController {
         ModelAndView mav = new ModelAndView("company/edit");
         Company company = companyService.readCompany(companyId);
         mav.addObject("company", company);
-
-        Map<Integer, Integer> selectedPeople = new HashMap<>();
-        for (Integer personId : company.getPersonIds()) {
-			selectedPeople.put(personId, personId);
-		}
-        mav.addObject("selectedPeople", selectedPeople);
-
         mav.addObject("people", personService.listPeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
@@ -142,6 +134,7 @@ public class CompanyController {
         } else {
             ModelAndView mav = new ModelAndView("company/edit");
             mav.addObject("company", company);
+            mav.addObject("people", personService.listPeople());
             mav.addObject("errors", errors);
             return mav;
         }
