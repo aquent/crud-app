@@ -25,7 +25,7 @@
                 </c:forEach>
             </ul>
         </c:if>
-        <form action="${pageContext.request.contextPath}/person/create" method="POST">
+        <form id="createPerson" action="${pageContext.request.contextPath}/person/create" method="POST">
             <br/>
             <label for="firstName">First Name:</label>
             <input type="text" name="firstName" value="${person.firstName}"/>
@@ -58,5 +58,51 @@
             <br/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
+    
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+	    <script type="text/javascript">
+		    $(document).ready(function () {	
+			    $('#createPerson').validate({
+		    		rules: {
+		    			firstName: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			lastName: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			emailAddress: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			streetAddress: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			city: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			state: {
+		    				required: true,
+		    				minlength: 2,
+		    				maxlength: 2
+		    			},
+		    			zipCode: {
+		    				required: true,
+		    				minlength: 5,
+		    				maxlength: 5
+		    			}
+		    		}
+		    	});
+		    });
+	    </script>
     </body>
 </html>

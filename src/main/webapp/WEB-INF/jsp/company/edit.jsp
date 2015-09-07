@@ -19,7 +19,7 @@
                 </c:forEach>
             </ul>
         </c:if>
-        <form action="${pageContext.request.contextPath}/company/edit" method="POST">
+        <form id="editCompany" action="${pageContext.request.contextPath}/company/edit" method="POST">
             <input type="hidden" name="companyId" value="${company.companyId}"/>
             <br/>
             <label for="name">Name:</label>
@@ -54,5 +54,51 @@
             <br/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+	    <script type="text/javascript">
+		    $(document).ready(function () {	
+			    $('#editCompany').validate({
+		    		rules: {
+		    			name: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			website: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			phoneNumber: {
+		    				required: true,
+		    				minlength: 10,
+		    				maxlength: 10
+		    			},
+		    			streetAddress: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			city: {
+		    				required: true,
+		    				minlength: 1,
+		    				maxlength: 50
+		    			},
+		    			state: {
+		    				required: true,
+		    				minlength: 2,
+		    				maxlength: 2
+		    			},
+		    			zipCode: {
+		    				required: true,
+		    				minlength: 5,
+		    				maxlength: 5
+		    			}
+		    		}
+		    	});
+		    });
+	    </script>
     </body>
 </html>
