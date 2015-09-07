@@ -28,9 +28,9 @@
 		   
 		<div class="container">
 			<div>
-				<h1>View Person</h1>
+				<h1><c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/></h1>
 				<div>
-					<h2><a href="mailto:${person.emailAddress}"><c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/></a></h2>
+					<p><c:out value="${person.emailAddress}"/></p>
 		        	<p>
 			        	<c:out value="${person.streetAddress}"/><br/>
 			        	<c:out value="${person.city}"/>, <c:out value="${person.state}"/><c:out value="${person.zipCode}"/><br/>

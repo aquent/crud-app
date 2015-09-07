@@ -28,15 +28,13 @@
 		   
 		<div class="container">
 			<div>
-				<h1>View Company</h1>
+				<h1><c:out value="${company.name}"/></h1>
 				<div>
-					<h2><a href="http://${company.website}"><c:out value="${company.name}"/></a></h2>
+					<p><c:out value="${company.website}"/></p>
 					<p>
-						
 						<c:out value="${company.streetAddress}"/><br/>
 						<c:out value="${company.city}"/>, <c:out value="${company.state}"/><c:out value="${company.zipCode}"/><br/>
 					</p>
-					
 					<p>Contacts:
 				 	<c:if test="${empty people}">
 				 		No contacts assigned.
