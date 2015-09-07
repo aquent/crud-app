@@ -16,12 +16,10 @@ public class Company {
     @Size(min = 1, max = 50, message = "Company name is required with maximum length of 50")
     private String name;
 
-    // TODO validate as url using regex or custom validator
     @NotNull
     @Size(min = 1, max = 50, message = "Website is required with maximum length of 50")
     private String website;
 
-    // TODO validate as phone number using regex or custom validator
     @NotNull
     @Size(min = 1, max = 10, message = "Phone number is required with maximum length of 10")
     private String phoneNumber;

@@ -49,4 +49,14 @@
         p:personDao-ref="personDao"
         p:validator-ref="validator" />
 
+  <bean id="searchDao" class="com.aquent.crudapp.data.dao.jdbc.SearchJdbcDao">
+    <property name="namedParameterJdbcTemplate">
+      <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" c:classicJdbcTemplate-ref="jdbcTemplate" />
+    </property>
+  </bean>
+
+  <bean id="searchService"
+        class="com.aquent.crudapp.service.DefaultSearchService"
+        p:searchDao-ref="searchDao" />
+
 </beans>
