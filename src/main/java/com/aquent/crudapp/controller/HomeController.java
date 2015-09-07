@@ -15,7 +15,7 @@ public class HomeController {
      *
      * @return index view
      */
-    @RequestMapping
+    @RequestMapping(value="/")
     public String index() {
         return "index";
     }
