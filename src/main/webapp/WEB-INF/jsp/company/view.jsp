@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Delete Person | Crud Application</title>
+		<title>View Company | Crud Application</title>
 
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -28,14 +28,31 @@
 		   
 		<div class="container">
 			<div>
-		        <h1>Delete Person</h1>
-		        <p>You are about to delete the person ${person.firstName} ${person.lastName}:  Are you sure?</p>
-		        <form action="${pageContext.request.contextPath}/person/delete" method="post">
-		            <input type="hidden" name="personId" value="${person.personId}"/>
-		            <input class="btn btn-default" type="submit" name="command" value="Cancel"/>
-		            <input class="btn btn-danger" type="submit" name="command" value="Delete"/>
-		        </form>
-		    </div>
+				<h1><c:out value="${company.name}"/></h1>
+				<div>
+					<p><c:out value="${company.website}"/></p>
+					<p>
+						<c:out value="${company.streetAddress}"/><br/>
+						<c:out value="${company.city}"/>, <c:out value="${company.state}"/><c:out value="${company.zipCode}"/><br/>
+					</p>
+					<p>Contacts:
+				 	<c:if test="${empty people}">
+				 		No contacts assigned.
+				 	</c:if>
+				 	<c:if test="${not empty people}">
+				 		<ul>
+				  		<c:forEach items="${people}" var="person">
+				  		<li><a href="${pageContext.request.contextPath}/person/view/${person.personId}">
+				  			<c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/>
+				  		</a></li>
+				  		</c:forEach>
+				 		</ul>
+				 	</c:if>
+					</p>
+					<a class="btn btn-default" href="${pageContext.request.contextPath}/company/edit/${company.companyId}">Edit Company</a>
+				   	<a class="btn btn-danger" href="${pageContext.request.contextPath}/company/delete/${company.companyId}">Delete Company</a>
+				</div>
+			</div>
 		</div><!-- /.container -->
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

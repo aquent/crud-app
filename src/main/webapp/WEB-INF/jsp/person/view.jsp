@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Delete Person | Crud Application</title>
+		<title>View Person | Crud Application</title>
 
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -28,14 +28,25 @@
 		   
 		<div class="container">
 			<div>
-		        <h1>Delete Person</h1>
-		        <p>You are about to delete the person ${person.firstName} ${person.lastName}:  Are you sure?</p>
-		        <form action="${pageContext.request.contextPath}/person/delete" method="post">
-		            <input type="hidden" name="personId" value="${person.personId}"/>
-		            <input class="btn btn-default" type="submit" name="command" value="Cancel"/>
-		            <input class="btn btn-danger" type="submit" name="command" value="Delete"/>
-		        </form>
-		    </div>
+				<h1><c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/></h1>
+				<div>
+					<p><c:out value="${person.emailAddress}"/></p>
+		        	<p>
+			        	<c:out value="${person.streetAddress}"/><br/>
+			        	<c:out value="${person.city}"/>, <c:out value="${person.state}"/><c:out value="${person.zipCode}"/><br/>
+		        	</p>
+		        	<p>Client:
+			        	<c:if test="${empty company}">
+			        		Not Assigned to a client.
+			        	</c:if>
+			        	<c:if test="${not empty company}">
+			        		<a href="${pageContext.request.contextPath}/company/view/${company.companyId}"><c:out value="${company.name}"/></a>
+			        	</c:if>
+		        	</p>
+		        	<a class="btn btn-default" href="${pageContext.request.contextPath}/person/edit/${person.personId}">Edit Person</a>
+		           	<a class="btn btn-danger" href="${pageContext.request.contextPath}/person/delete/${person.personId}">Delete Person</a>
+				</div>
+			</div>
 		</div><!-- /.container -->
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     /**
-     * Redirect to the person list.
-     * In a real application this could be our landing or login page.
+     * renders the index page
      *
-     * @return redirect to the person list
+     * @return index view
      */
-    @RequestMapping
+    @RequestMapping(value="/")
     public String index() {
-        return "redirect:/person/list";
+        return "index";
     }
 }
