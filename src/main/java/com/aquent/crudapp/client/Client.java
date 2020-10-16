@@ -1,4 +1,4 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.client;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
  */
 // Injects Getters and Setters for you (via Lombok) https://projectlombok.org/features/Data
 @Data
-public class Person {
+public class Client {
 
     private Integer personId;
 

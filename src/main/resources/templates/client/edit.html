@@ -4,10 +4,10 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Create Person</title>
+    <title>Edit Person</title>
   </head>
   <body>
-    <h1>Create Person</h1>
+    <h1>Edit Person</h1>
     <th:block th:unless="${#lists.isEmpty(errors)}">
       <p>Please correct the following errors in your submission:</p>
       <ul>
@@ -16,7 +16,8 @@
         </th:block>
       </ul>
     </th:block>
-    <form action="person/create" method="POST">
+    <form action="/person/edit" method="POST">
+      <input type="hidden" name="personId" th:value="${person.personId}"/>
       <br/>
       <label for="firstName">First Name:</label>
       <input type="text" name="firstName" th:value="${person.firstName}"/>

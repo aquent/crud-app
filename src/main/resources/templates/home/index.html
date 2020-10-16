@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Create Person</title>
+    </head>
+    <body>
+        <h1>Welcome to Aquent's Client Managerial Service</h1>
+        <th:block th:unless="${#lists.isEmpty(errors)}">
+            <p>Please correct the following errors in your submission:</p>
+            <ul>
+                <th:block th:each="error : ${errors}">
+                    <li>${error}</li>
+                </th:block>
+            </ul>
+        </th:block>
+        What would you like to do?
+        <a href="/person/create">Create a Person</a>
+        <br>
+        <a href="/person/list">View People</a>
+        <br>
+    </body>
+</html>

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class DefaultPersonService implements PersonService {
     private final PersonDao personDao;
     private final Validator validator;
 
+    @Autowired
     public DefaultPersonService(PersonDao personDao, Validator validator) {
         this.personDao = personDao;
         this.validator = validator;
