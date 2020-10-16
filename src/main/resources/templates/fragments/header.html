@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="header">
+    <th:block th:unless="${#httpServletRequest.requestURI == '/'}">
+        <a href="/">Go Home </a>
+    </th:block>
+    <a href="/person/create">Create a Person </a>
+    <a href="/person/list">View People </a>
+    <a href="/client/create">Create a Client </a>
+    <a href="/client/list">View Clients</a>
+    <br>
+</footer>
+</body>
+</html>

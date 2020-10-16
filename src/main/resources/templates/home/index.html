@@ -7,19 +7,7 @@
         <title>Create Person</title>
     </head>
     <body>
+        <div th:insert="fragments/header :: header"></div>
         <h1>Welcome to Aquent's Client Managerial Service</h1>
-        <th:block th:unless="${#lists.isEmpty(errors)}">
-            <p>Please correct the following errors in your submission:</p>
-            <ul>
-                <th:block th:each="error : ${errors}">
-                    <li>${error}</li>
-                </th:block>
-            </ul>
-        </th:block>
-        What would you like to do?
-        <a href="/person/create">Create a Person</a>
-        <br>
-        <a href="/person/list">View People</a>
-        <br>
     </body>
 </html>

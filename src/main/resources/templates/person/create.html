@@ -7,16 +7,17 @@
     <title>Create Person</title>
   </head>
   <body>
+    <div th:insert="fragments/header :: header"></div>
     <h1>Create Person</h1>
     <th:block th:unless="${#lists.isEmpty(errors)}">
       <p>Please correct the following errors in your submission:</p>
       <ul>
         <th:block th:each="error : ${errors}">
-          <li>${error}</li>
+          <li th:text="${error}"></li>
         </th:block>
       </ul>
     </th:block>
-    <form action="person/create" method="POST">
+    <form action="create" method="POST">
       <br/>
       <label for="firstName">First Name:</label>
       <input type="text" name="firstName" th:value="${person.firstName}"/>

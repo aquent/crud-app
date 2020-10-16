@@ -7,6 +7,7 @@
     <title>Person Listing</title>
   </head>
   <body>
+    <div th:insert="fragments/header :: header"></div>
     <h1>Person Listing</h1>
     <p><a href="/person/create">Create New Person</a></p>
     <th:block th:unless="${#lists.isEmpty(persons)}">

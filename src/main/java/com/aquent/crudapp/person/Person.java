@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 /**
  * The person entity corresponding to the "person" table in the database.
  */
-// Injects Getters and Setters for you (via Lombok) https://projectlombok.org/features/Data
 @Data
 public class Person {
 

@@ -21,7 +21,6 @@ public class DefaultPersonService implements PersonService {
     private final PersonDao personDao;
     private final Validator validator;
 
-    @Autowired
     public DefaultPersonService(PersonDao personDao, Validator validator) {
         this.personDao = personDao;
         this.validator = validator;

@@ -12,21 +12,20 @@ import javax.validation.constraints.Size;
 @Data
 public class Client {
 
-    private Integer personId;
+    private Integer clientId;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "First name is required with maximum length of 50")
-    private String firstName;
+    @Size(min = 1, max = 50, message = "Company name is required with maximum length of 50")
+    private String companyName;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "Last name is required with maximum length of 50")
-    private String lastName;
+    @Size(min = 1, max = 100, message = "Website URI is required with maximum length of 100")
+    private String websiteUri;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
-    private String emailAddress;
+    @Size(min = 10, max = 10, message = "Phone number is required with length of 10")
+    private String phoneNumber;
 
-    @NotNull
     @Size(min = 1, max = 50, message = "Street address is required with maximum length of 50")
     private String streetAddress;
 
