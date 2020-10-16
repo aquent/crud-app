@@ -1,9 +1,11 @@
 package com.aquent.crudapp.client;
 
+import com.aquent.crudapp.person.Person;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * The person entity corresponding to the "person" table in the database.
@@ -16,7 +18,7 @@ public class Client {
 
     @NotNull
     @Size(min = 1, max = 50, message = "Company name is required with maximum length of 50")
-    private String companyName;
+    private String clientName;
 
     @NotNull
     @Size(min = 1, max = 100, message = "Website URI is required with maximum length of 100")
@@ -40,4 +42,6 @@ public class Client {
     @NotNull
     @Size(min = 5, max = 5, message = "Zip code is required with length 5")
     private String zipCode;
+
+    private List<Person> contacts;
 }

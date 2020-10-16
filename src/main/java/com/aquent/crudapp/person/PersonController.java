@@ -43,6 +43,7 @@ public class PersonController {
     @GetMapping(value = "create")
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("person/create");
+        Person newPerson = new Person();
         mav.addObject("person", new Person());
         mav.addObject("errors", new ArrayList<String>());
         return mav;

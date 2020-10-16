@@ -17,6 +17,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email Address</th>
+            <th>Client</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -26,6 +27,9 @@
               <td th:text="${person.firstName}">First</td>
               <td th:text="${person.lastName}">Last</td>
               <td th:text="${person.emailAddress}">first.last@email.com</td>
+              <td>
+                <a th:href="@{/client/read(clientName=${person.clientName})}" th:text="${person.clientName}"></a>
+              </td>
               <td>
                 <a th:href="'/person/edit/' + ${person.personId}">Edit Person</a>
                 <a th:href="'/person/delete/' + ${person.personId}">Delete Person</a>

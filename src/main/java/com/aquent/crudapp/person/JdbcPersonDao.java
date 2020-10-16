@@ -1,10 +1,12 @@
 package com.aquent.crudapp.person;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import com.aquent.crudapp.client.Client;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -20,14 +22,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class JdbcPersonDao implements PersonDao {
 
-    private static final String SQL_LIST_PEOPLE = "SELECT * FROM person ORDER BY first_name, last_name, person_id";
-    private static final String SQL_READ_PERSON = "SELECT * FROM person WHERE person_id = :personId";
+    private static final String SQL_LIST_PEOPLE = "SELECT p.*, c.client_name FROM person p join client c on (p.client_id = c.client_id) ORDER BY first_name, last_name, person_id";
+    private static final String SQL_READ_PERSON = "SELECT * FROM person p join client c on (p.client_id = c.client_id AND p.person_id = :personId)";
     private static final String SQL_DELETE_PERSON = "DELETE FROM person WHERE person_id = :personId";
     private static final String SQL_UPDATE_PERSON = "UPDATE person SET (first_name, last_name, email_address, street_address, city, state, zip_code)"
                                                   + " = (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)"
                                                   + " WHERE person_id = :personId";
-    private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code)"
-                                                  + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)";
+    private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
+                                                  + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode, :clientId)";
+    private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE company_name = :company_name";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -63,6 +66,7 @@ public class JdbcPersonDao implements PersonDao {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public Integer createPerson(Person person) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
+//        Client client = namedParameterJdbcTemplate.update(SQL_READ_CLIENT, Collections.singletonMap("company_name", person.getClientName()), keyHolder);
         namedParameterJdbcTemplate.update(SQL_CREATE_PERSON, new BeanPropertySqlParameterSource(person), keyHolder);
         return keyHolder.getKey().intValue();
     }
@@ -83,6 +87,7 @@ public class JdbcPersonDao implements PersonDao {
             person.setCity(rs.getString("city"));
             person.setState(rs.getString("state"));
             person.setZipCode(rs.getString("zip_code"));
+            person.setClientName(rs.getString("client_name"));
             return person;
         }
     }

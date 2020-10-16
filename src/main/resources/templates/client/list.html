@@ -24,7 +24,7 @@
         <tbody>
           <th:block th:each="client : ${clients}">
             <tr>
-              <td th:text="${client.companyName}">Company Name</td>
+              <td th:text="${client.clientName}">Company Name</td>
               <td th:text="${client.websiteUri}">Website</td>
               <td th:text="${formatter.formatPhoneNumber(client.phoneNumber)}">Phone Number</td>
               <td th:text="${formatter.formatAddress(client.streetAddress, client.city, client.state, client.zipCode)}">Address</td>

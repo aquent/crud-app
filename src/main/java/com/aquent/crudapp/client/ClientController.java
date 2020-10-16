@@ -27,12 +27,25 @@ public class ClientController {
     /**
      * Renders the listing page.
      *
-     * @return list view populated with the current list of people
+     * @return list view populated with the current list of clients
      */
     @GetMapping(value = "list")
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView("client/list");
         mav.addObject("clients", clientService.listClients());
+        mav.addObject("formatter", new Formatter());
+        return mav;
+    }
+
+    /**
+     * Renders the single client page.
+     *
+     * @return single client view populated with the appropriate client
+     */
+    @GetMapping(value = "read")
+    public ModelAndView read(@RequestParam String clientName) {
+        ModelAndView mav = new ModelAndView("client/read");
+        mav.addObject("client", clientService.readClient(clientName));
         mav.addObject("formatter", new Formatter());
         return mav;
     }

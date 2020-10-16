@@ -38,6 +38,12 @@ public class DefaultClientService implements ClientService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Client readClient(String clientName) {
+        return clientDao.readClient(clientName);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public Integer createClient(Client client) {
         System.out.println(client);

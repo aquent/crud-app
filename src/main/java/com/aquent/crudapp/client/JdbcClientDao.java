@@ -21,7 +21,8 @@ import java.util.List;
 public class JdbcClientDao implements ClientDao {
 
     private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY company_name, client_id";
-    private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE client_id = :clientId";
+    private static final String SQL_READ_CLIENT_BY_ID = "SELECT * FROM client WHERE client_id = :clientId";
+    private static final String SQL_READ_CLIENT_BY_NAME = "SELECT * FROM client WHERE client_name = :clientName";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
                                                   + " = (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
@@ -44,7 +45,13 @@ public class JdbcClientDao implements ClientDao {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Client readClient(Integer clientId) {
-        return namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT, Collections.singletonMap("clientId", clientId), new ClientRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_BY_ID, Collections.singletonMap("clientId", clientId), new ClientRowMapper());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Client readClient(String clientName) {
+        return namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_BY_NAME, Collections.singletonMap("clientName", clientName), new ClientRowMapper());
     }
 
     @Override
@@ -76,7 +83,7 @@ public class JdbcClientDao implements ClientDao {
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
             Client client = new Client();
             client.setClientId(rs.getInt("client_id"));
-            client.setCompanyName(rs.getString("company_name"));
+            client.setClientName(rs.getString("client_name"));
             client.setWebsiteUri(rs.getString("website_uri"));
             client.setPhoneNumber(rs.getString("phone_number"));
             client.setStreetAddress(rs.getString("street_address"));

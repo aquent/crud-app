@@ -1,3 +1,20 @@
+INSERT INTO client (
+    client_name,
+    website_uri,
+    phone_number,
+    street_address,
+    city,
+    state,
+    zip_code
+) VALUES (
+     'Aquent',
+     'http://www.aquent.com',
+     '6175555555',
+     '123 Any St.',
+     'Boston',
+     'MA',
+     '02118'
+    );
 INSERT INTO person (
     first_name,
     last_name,
@@ -5,7 +22,8 @@ INSERT INTO person (
     street_address,
     city,
     state,
-    zip_code
+    zip_code,
+    client_id
 ) VALUES (
     'John',
     'Smith',
@@ -13,7 +31,8 @@ INSERT INTO person (
     '123 Any St.',
     'Asheville',
     'NC',
-    '28801'
+    '28801',
+    1
 ), (
     'Jane',
     'Smith',
@@ -21,5 +40,7 @@ INSERT INTO person (
     '123 Any St.',
     'Asheville',
     'NC',
-    '28801'
+    '28801',
+    1
 );
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Client Directory</title>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<h1>Client Directory</h1>
+<p><a href="/client/create">Create New Client</a></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Website</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${client.clientName}">Company Name</td>
+                <td th:text="${client.websiteUri}">Website</td>
+                <td th:text="${formatter.formatPhoneNumber(client.phoneNumber)}">Phone Number</td>
+                <td th:text="${formatter.formatAddress(client.streetAddress, client.city, client.state, client.zipCode)}">Address</td>
+                <!--              <td th:text="${person.emailAddress}">first.last@email.com</td>-->
+                <td>
+                    <a th:href="'/client/edit/' + ${client.clientId}">Edit Client</a>
+                    <a th:href="'/client/delete/' + ${client.clientId}">Delete Client</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<th:block th:if="${#lists.isEmpty(client)}">
+    <p>No results found.</p>
+</th:block>
+</body>
+</html>

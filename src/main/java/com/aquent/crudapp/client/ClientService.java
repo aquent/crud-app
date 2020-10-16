@@ -31,6 +31,14 @@ public interface ClientService {
     Client readClient(Integer id);
 
     /**
+     * Retrieves a client record by name.
+     *
+     * @param clientName the client name
+     * @return the client record
+     */
+    Client readClient(String clientName);
+
+    /**
      * Updates an existing client record.
      *
      * @param client the new values to save
