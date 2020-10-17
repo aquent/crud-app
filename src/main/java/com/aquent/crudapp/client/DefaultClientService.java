@@ -1,5 +1,7 @@
 package com.aquent.crudapp.client;
 
+import com.aquent.crudapp.person.Person;
+import com.aquent.crudapp.person.PersonDao;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +20,12 @@ import java.util.Set;
 public class DefaultClientService implements ClientService {
 
     private final ClientDao clientDao;
+    private final PersonDao personDao;
     private final Validator validator;
 
-    public DefaultClientService(ClientDao clientDao, Validator validator) {
+    public DefaultClientService(ClientDao clientDao, PersonDao personDao, Validator validator) {
         this.clientDao = clientDao;
+        this.personDao = personDao;
         this.validator = validator;
     }
 
@@ -29,6 +33,18 @@ public class DefaultClientService implements ClientService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Client> listClients() {
         return clientDao.listClients();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Person> listContacts(String clientName) {
+        return personDao.listPeople(clientName);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Person> listContacts(Integer clientId) {
+        return personDao.listPeople(clientId);
     }
 
     @Override
@@ -46,13 +62,27 @@ public class DefaultClientService implements ClientService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public Integer createClient(Client client) {
-        System.out.println(client);
         return clientDao.createClient(client);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public void updateClient(Client client) {
+        List<Person> allPeople = personDao.listPeople();
+        for (Person person : allPeople) {
+            if (client.getContacts().contains(person)) {
+                // TODO: Do something about this?
+                if (!person.getClientName().equals(client.getClientName())) {
+                    person.setClientName("" + client.getClientId());
+                    personDao.updatePerson(person);
+                }
+            } else {
+                if (person.getClientName().equals(client.getClientName())) {
+                    person.setClientName(null);
+                    personDao.updatePerson(person);
+                }
+            }
+        }
         clientDao.updateClient(client);
     }
 

@@ -20,15 +20,15 @@ import java.util.List;
 @Component
 public class JdbcClientDao implements ClientDao {
 
-    private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY company_name, client_id";
+    private static final String SQL_LIST_CLIENTS = "SELECT * FROM client ORDER BY client_name, client_id";
     private static final String SQL_READ_CLIENT_BY_ID = "SELECT * FROM client WHERE client_id = :clientId";
     private static final String SQL_READ_CLIENT_BY_NAME = "SELECT * FROM client WHERE client_name = :clientName";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
-    private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-                                                  + " = (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
+    private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (client_name, website_uri, phone_number, street_address, city, state, zip_code)"
+                                                  + " = (:clientName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
                                                   + " WHERE client_id = :clientId";
-    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-                                                  + " VALUES (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
+    private static final String SQL_CREATE_CLIENT = "INSERT INTO client (client_name, website_uri, phone_number, street_address, city, state, zip_code)"
+                                                  + " VALUES (:clientName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

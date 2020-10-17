@@ -18,6 +18,20 @@ public interface PersonDao {
     List<Person> listPeople();
 
     /**
+     * Retrieves all of the person records related to a specific client by name.
+     *
+     * @return list of person records
+     */
+    List<Person> listPeople(String clientName);
+
+    /**
+     * Retrieves all of the person records related to a specific client by id.
+     *
+     * @return list of person records
+     */
+    List<Person> listPeople(Integer clientId);
+
+    /**
      * Creates a new person record.
      *
      * @param person the values to save

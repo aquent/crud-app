@@ -8,12 +8,11 @@
 </head>
 <body>
 <div th:insert="fragments/header :: header"></div>
-<h1>Client Directory</h1>
-<p><a href="/client/create">Create New Client</a></p>
+<h1 th:text="${client.clientName}"></h1>
     <table>
         <thead>
         <tr>
-            <th>Company Name</th>
+<!--            <th>Company Name</th>-->
             <th>Website</th>
             <th>Phone Number</th>
             <th>Address</th>
@@ -22,16 +21,30 @@
         </thead>
         <tbody>
             <tr>
-                <td th:text="${client.clientName}">Company Name</td>
                 <td th:text="${client.websiteUri}">Website</td>
                 <td th:text="${formatter.formatPhoneNumber(client.phoneNumber)}">Phone Number</td>
                 <td th:text="${formatter.formatAddress(client.streetAddress, client.city, client.state, client.zipCode)}">Address</td>
-                <!--              <td th:text="${person.emailAddress}">first.last@email.com</td>-->
                 <td>
                     <a th:href="'/client/edit/' + ${client.clientId}">Edit Client</a>
                     <a th:href="'/client/delete/' + ${client.clientId}">Delete Client</a>
                 </td>
             </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>Contacts</th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="contact : ${contacts}">
+                <tr>
+                    <td th:text="${contact.firstName}">First</td>
+                    <td th:text="${contact.lastName}">Last</td>
+                    <td th:text="${contact.emailAddress}">first.last@email.com</td>
+                </tr>
+            </th:block>
         </tbody>
     </table>
 <th:block th:if="${#lists.isEmpty(client)}">

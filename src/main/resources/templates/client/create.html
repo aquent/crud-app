@@ -13,14 +13,14 @@
       <p>Please correct the following errors in your submission:</p>
       <ul>
         <th:block th:each="error : ${errors}">
-          <li>${error}</li>
+          <li th:text="${error}"></li>
         </th:block>
       </ul>
     </th:block>
     <form action="create" method="POST">
       <br/>
-      <label for="companyName">Company Name:</label>
-      <input type="text" name="companyName" th:value="${client.companyName}"/>
+      <label for="clientName">Client Name:</label>
+      <input type="text" name="clientName" th:value="${client.clientName}"/>
       <br/>
       <label for="websiteUri">Website:</label>
       <input type="text" name="websiteUri" th:value="${client.websiteUri}"/>

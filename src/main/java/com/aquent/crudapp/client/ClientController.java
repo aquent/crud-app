@@ -1,5 +1,7 @@
 package com.aquent.crudapp.client;
 
+import com.aquent.crudapp.person.Person;
+import com.aquent.crudapp.person.PersonService;
 import com.aquent.crudapp.util.Formatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("client")
@@ -19,8 +22,10 @@ public class ClientController {
     public static final String COMMAND_DELETE = "Delete";
 
     private final ClientService clientService;
+    private final PersonService personService;
 
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, PersonService personService) {
+        this.personService = personService;
         this.clientService = clientService;
     }
 
@@ -38,7 +43,7 @@ public class ClientController {
     }
 
     /**
-     * Renders the single client page.
+     * Renders the single client page by name.
      *
      * @return single client view populated with the appropriate client
      */
@@ -46,6 +51,21 @@ public class ClientController {
     public ModelAndView read(@RequestParam String clientName) {
         ModelAndView mav = new ModelAndView("client/read");
         mav.addObject("client", clientService.readClient(clientName));
+        mav.addObject("contacts", clientService.listContacts(clientName));
+        mav.addObject("formatter", new Formatter());
+        return mav;
+    }
+
+    /**
+     * Renders the single client page.
+     *
+     * @return single client view populated with the appropriate client
+     */
+    @GetMapping(value = "read/{clientId}")
+    public ModelAndView read(@PathVariable Integer clientId) {
+        ModelAndView mav = new ModelAndView("client/read");
+        mav.addObject("client", clientService.readClient(clientId));
+        mav.addObject("contacts", clientService.listContacts(clientId));
         mav.addObject("formatter", new Formatter());
         return mav;
     }
@@ -73,14 +93,11 @@ public class ClientController {
      */
     @PostMapping(value = "create")
     public ModelAndView create(Client client) {
-        System.out.println(client);
         List<String> errors = clientService.validateClient(client);
         if (errors.isEmpty()) {
-            System.out.println("no error");
             clientService.createClient(client);
             return new ModelAndView("redirect:/client/list");
         } else {
-            System.out.println("error");
             ModelAndView mav = new ModelAndView("client/create");
             mav.addObject("client", client);
             mav.addObject("errors", errors);
@@ -98,6 +115,8 @@ public class ClientController {
     public ModelAndView edit(@PathVariable Integer clientId) {
         ModelAndView mav = new ModelAndView("client/edit");
         mav.addObject("client", clientService.readClient(clientId));
+        mav.addObject("currentContacts", clientService.listContacts(clientId));
+        mav.addObject("allContacts", personService.listPeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -111,11 +130,17 @@ public class ClientController {
      * @return redirect, or edit view with errors
      */
     @PostMapping(value = "edit")
-    public ModelAndView edit(Client client) {
+    public ModelAndView edit(Client client,
+                             @RequestParam(value = "newContacts") List<String> newContactList) {
         List<String> errors = clientService.validateClient(client);
         if (errors.isEmpty()) {
+            List<Person> newContacts = personService.listPeople()
+                    .stream()
+                    .filter(person -> newContactList.contains(person.getFirstName() + ' ' + person.getLastName()))
+                    .collect(Collectors.toList());
+            client.setContacts(newContacts);
             clientService.updateClient(client);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/client/read/" + client.getClientId());
         } else {
             ModelAndView mav = new ModelAndView("client/edit");
             mav.addObject("client", client);
@@ -134,6 +159,7 @@ public class ClientController {
     public ModelAndView delete(@PathVariable Integer clientId) {
         ModelAndView mav = new ModelAndView("client/delete");
         mav.addObject("client", clientService.readClient(clientId));
+        mav.addObject("contacts", clientService.listContacts(clientId));
         return mav;
     }
 

@@ -8,7 +8,7 @@ public class Formatter {
     public Formatter() {}
 
     public String formatPhoneNumber(String phoneNumber) {
-        return String.format("(%s}-%s-%s", phoneNumber.substring(0,3),
+        return String.format("(%s)-%s-%s", phoneNumber.substring(0,3),
                 phoneNumber.substring(3,6), phoneNumber.substring(6));
     }
 

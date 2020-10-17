@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import com.aquent.crudapp.client.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,10 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class DefaultPersonService implements PersonService {
 
     private final PersonDao personDao;
+    private final ClientDao clientDao;
     private final Validator validator;
 
-    public DefaultPersonService(PersonDao personDao, Validator validator) {
+    public DefaultPersonService(PersonDao personDao, ClientDao clientDao, Validator validator) {
         this.personDao = personDao;
+        this.clientDao = clientDao;
         this.validator = validator;
     }
 
@@ -41,12 +44,15 @@ public class DefaultPersonService implements PersonService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public Integer createPerson(Person person) {
+        person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
         return personDao.createPerson(person);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public void updatePerson(Person person) {
+        System.out.println("service:" + person);
+        person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
         personDao.updatePerson(person);
     }
 
