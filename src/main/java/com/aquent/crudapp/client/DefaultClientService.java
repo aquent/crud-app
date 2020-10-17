@@ -32,7 +32,7 @@ public class DefaultClientService implements ClientService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Client> listClients() {
-        return clientDao.listClients();
+        return clientDao.listClients() ;
     }
 
     @Override
