@@ -31,7 +31,7 @@ public class Client {
     private String websiteUri;
 
     @NotNull
-    @Size(min = 10, max = 10, message = "Phone number is required with length of 10")
+    @Size(min = 12, max = 12, message = "Phone number is required with length of 12")
     private String phoneNumber;
 
     @Size(min = 1, max = 50, message = "Street address is required with maximum length of 50")

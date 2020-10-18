@@ -9,7 +9,7 @@ INSERT INTO client (
 ) VALUES (
      'Aquent',
      'http://www.aquent.com',
-     '6175555555',
+     '617-555-5555',
      '123 Any St.',
      'Boston',
      'MA',

@@ -17,35 +17,43 @@
         </th:block>
       </ul>
     </th:block>
-    <form action="create" method="POST">
+    <form action="/person/create" id="personForm" method="POST">
       <br/>
       <label for="firstName">First Name:</label>
-      <input type="text" name="firstName" th:value="${person.firstName}"/>
+      <input type="text" name="firstName" id="firstName" th:value="${person.firstName}"/>
+      <p id="firstNameError" hidden></p>
       <br/>
       <label for="lastName">Last Name:</label>
-      <input type="text" name="lastName" th:value="${person.lastName}"/>
+      <input type="text" name="lastName" id="lastName" th:value="${person.lastName}"/>
+      <p id="lastNameError" hidden></p>
       <br/>
       <label for="emailAddress">Email Address:</label>
-      <input type="text" name="emailAddress" th:value="${person.emailAddress}"/>
+      <input type="email" name="emailAddress" id="emailAddress" th:value="${person.emailAddress}"/>
+      <p id="emailAddressError" hidden></p>
       <br/>
       <label for="streetAddress">Street Address:</label>
-      <input type="text" name="streetAddress" th:value="${person.streetAddress}"/>
+      <input type="text" name="streetAddress" id="streetAddress" th:value="${person.streetAddress}"/>
+      <p id="streetAddressError" hidden></p>
       <br/>
       <label for="city">City:</label>
-      <input type="text" name="city" th:value="${person.city}"/>
+      <input type="text" name="city" id="city" th:value="${person.city}"/>
+      <p id="cityError" hidden></p>
       <br/>
       <label for="state">State:</label>
-      <input type="text" name="state" th:value="${person.state}"/>
+      <input type="text" name="state" id="state" th:value="${person.state}"/>
+      <p id="stateError" hidden></p>
       <br/>
       <label for="zipCode">Zip Code:</label>
-      <input type="text" name="zipCode" th:value="${person.zipCode}"/>
+      <input type="text" name="zipCode" id="zipCode" th:value="${person.zipCode}"/>
+      <p id="zipCodeError" hidden></p>
       <br/>
       <label for="clientName">Client:</label>
-      <select th:field="${person.clientName}">
+      <select id="clientName" th:field="${person.clientName}">
         <option th:each="client : ${clients}" th:value="${client.clientName}" th:text="${client.clientName}"></option>
       </select>
       <br/>
       <input type="submit" name="Submit" value="Submit"/>
     </form>
+    <script type="text/javascript" th:src="@{/js/person_form_validation.js}"></script>
   </body>
 </html>

@@ -20,11 +20,11 @@ public class Person {
     private Integer personId;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "First name is required with maximum length of 50")
+    @Size(min = 1, max = 20, message = "First name is required with maximum length of 20")
     private String firstName;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "Last name is required with maximum length of 50")
+    @Size(min = 1, max = 20, message = "Last name is required with maximum length of 20")
     private String lastName;
 
     @NotNull
@@ -36,7 +36,7 @@ public class Person {
     private String streetAddress;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "City is required with maximum length of 50")
+    @Size(min = 1, max = 20, message = "City is required with maximum length of 20")
     private String city;
 
     @NotNull
