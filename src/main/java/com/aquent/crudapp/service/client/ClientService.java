@@ -1,14 +1,13 @@
-package com.aquent.crudapp.client;
+package com.aquent.crudapp.service.client;
 
-import org.springframework.stereotype.Repository;
+import com.aquent.crudapp.dto.Client;
+import com.aquent.crudapp.dto.Person;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Operations on the "client" table.
- */
-@Repository
-public interface ClientDao {
+@Service
+public interface ClientService {
 
     /**
      * Retrieves all of the client records.
@@ -16,6 +15,20 @@ public interface ClientDao {
      * @return list of client records
      */
     List<Client> listClients();
+
+    /**
+     * Retrieves all of the person records related to the given client by Name.
+     *
+     * @return list of client records
+     */
+    List<Person> listContacts(String clientName);
+
+    /**
+     * Retrieves all of the person records related to the given client by ID.
+     *
+     * @return list of client records
+     */
+    List<Person> listContacts(Integer clientId);
 
     /**
      * Creates a new client record.
@@ -54,4 +67,12 @@ public interface ClientDao {
      * @param id the client ID
      */
     void deleteClient(Integer id);
+
+    /**
+     * Validates populated client data.
+     *
+     * @param client the values to validate
+     * @return list of error messages
+     */
+    List<String> validateClient(Client client);
 }

@@ -13,7 +13,7 @@
       <p>Please correct the following errors in your submission:</p>
       <ul>
         <th:block th:each="error : ${errors}">
-          <li>${error}</li>
+          <li th:text="${error}"></li>
         </th:block>
       </ul>
     </th:block>

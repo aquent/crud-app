@@ -1,7 +1,9 @@
-package com.aquent.crudapp.client;
+package com.aquent.crudapp.controller;
 
-import com.aquent.crudapp.person.Person;
-import com.aquent.crudapp.person.PersonService;
+import com.aquent.crudapp.dto.Client;
+import com.aquent.crudapp.service.client.ClientService;
+import com.aquent.crudapp.dto.Person;
+import com.aquent.crudapp.service.person.PersonService;
 import com.aquent.crudapp.util.Formatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

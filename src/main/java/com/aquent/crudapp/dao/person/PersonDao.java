@@ -1,14 +1,15 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.dao.person;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import com.aquent.crudapp.dto.Person;
+import org.springframework.stereotype.Repository;
 
 /**
- * Person operations.
+ * Operations on the "person" table.
  */
-@Service
-public interface PersonService {
+@Repository
+public interface PersonDao {
 
     /**
      * Retrieves all of the person records.
@@ -16,6 +17,20 @@ public interface PersonService {
      * @return list of person records
      */
     List<Person> listPeople();
+
+    /**
+     * Retrieves all of the person records related to a specific client by name.
+     *
+     * @return list of person records
+     */
+    List<Person> listPeople(String clientName);
+
+    /**
+     * Retrieves all of the person records related to a specific client by id.
+     *
+     * @return list of person records
+     */
+    List<Person> listPeople(Integer clientId);
 
     /**
      * Creates a new person record.
@@ -46,12 +61,4 @@ public interface PersonService {
      * @param id the person ID
      */
     void deletePerson(Integer id);
-
-    /**
-     * Validates populated person data.
-     *
-     * @param person the values to validate
-     * @return list of error messages
-     */
-    List<String> validatePerson(Person person);
 }

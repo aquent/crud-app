@@ -1,11 +1,11 @@
-package com.aquent.crudapp;
+package com.aquent.crudapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Simple controller to redirect to the person listing.  In the future, we could
+ * Simple controller to redirect to the main page.  In the future, we could
  * add other landing page behavior here if we were writing a real application.
  */
 @Controller
@@ -18,8 +18,7 @@ public class HomeController {
      */
     @GetMapping("/")
     public ModelAndView index() {
-        ModelAndView mav = new ModelAndView("home/index");
-        return mav;
+        return new ModelAndView("home/index");
         // return "redirect:/person/create";
     }
 }

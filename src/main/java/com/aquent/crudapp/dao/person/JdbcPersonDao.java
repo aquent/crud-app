@@ -1,12 +1,11 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.dao.person;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-import com.aquent.crudapp.client.Client;
+import com.aquent.crudapp.dto.Person;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

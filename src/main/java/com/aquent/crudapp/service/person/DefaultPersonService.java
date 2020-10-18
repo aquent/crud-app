@@ -1,4 +1,4 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.service.person;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,8 +7,9 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import com.aquent.crudapp.client.ClientDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.aquent.crudapp.dao.client.ClientDao;
+import com.aquent.crudapp.dao.person.PersonDao;
+import com.aquent.crudapp.dto.Person;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,9 @@ public class DefaultPersonService implements PersonService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public Integer createPerson(Person person) {
-        person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
+        if (person.getClientName() != null) {
+            person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
+        }
         return personDao.createPerson(person);
     }
 
@@ -52,7 +55,9 @@ public class DefaultPersonService implements PersonService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
     public void updatePerson(Person person) {
         System.out.println("service:" + person);
-        person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
+        if (person.getClientName() != null) {
+            person.setClientName("" + clientDao.readClient(person.getClientName()).getClientId());
+        }
         personDao.updatePerson(person);
     }
 

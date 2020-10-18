@@ -1,10 +1,11 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aquent.crudapp.client.ClientService;
-import com.aquent.crudapp.util.Formatter;
+import com.aquent.crudapp.service.client.ClientService;
+import com.aquent.crudapp.dto.Person;
+import com.aquent.crudapp.service.person.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;

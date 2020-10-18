@@ -1,5 +1,6 @@
-package com.aquent.crudapp.client;
+package com.aquent.crudapp.dao.client;
 
+import com.aquent.crudapp.dto.Client;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

@@ -1,6 +1,9 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,6 +12,9 @@ import javax.validation.constraints.Size;
  * The person entity corresponding to the "person" table in the database.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Person {
 
     private Integer personId;
