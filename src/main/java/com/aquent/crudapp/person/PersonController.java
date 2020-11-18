@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aquent.crudapp.client.Client;
+import com.aquent.crudapp.client.ClientService;
+
 /**
  * Controller for handling basic person management operations.
  */
@@ -21,9 +24,11 @@ public class PersonController {
     public static final String COMMAND_DELETE = "Delete";
 
     private final PersonService personService;
+    private final ClientService clientService;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, ClientService clientService) {
         this.personService = personService;
+        this.clientService = clientService;
     }
 
     /**
@@ -35,6 +40,15 @@ public class PersonController {
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView("person/list");
         mav.addObject("persons", personService.listPeople());
+        /*
+        List<Client> clients = new ArrayList<Client>();
+        for(int i = 0; i < personService.listPeople().size(); i++)  {
+        	Person person = personService.listPeople().get(i);
+        	Client client = clientService.readClient(person.getClientId());
+        	clients.add(client);
+        }
+        mav.addObject("clients", clients);
+        */
         return mav;
     }
 
@@ -47,6 +61,7 @@ public class PersonController {
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("person/create");
         mav.addObject("person", new Person());
+        mav.addObject("clients", clientService.listClients());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -83,7 +98,11 @@ public class PersonController {
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
         mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("chosenClient", clientService.readClient(personService.readPerson(personId).getClientId()));
+        mav.addObject("clients", clientService.listClients());
         mav.addObject("errors", new ArrayList<String>());
+        System.out.println(mav);
+        System.out.println(personService.readPerson(personId).getClientId());
         return mav;
     }
 
@@ -109,7 +128,9 @@ public class PersonController {
         }
     }
 
-    /**
+    /** DON'T NEED TO CHANGE
+     * 
+     * 
      * Renders the deletion confirmation page.
      *
      * @param personId the ID of the person to be deleted
@@ -122,7 +143,9 @@ public class PersonController {
         return mav;
     }
 
-    /**
+    /** DON'T NEED TO CHANGE
+     * 
+     * 
      * Handles person deletion or cancellation, redirecting to the listing page in either case.
      *
      * @param command the command field from the form

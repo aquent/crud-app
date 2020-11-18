@@ -17,6 +17,10 @@ public class Person {
     @NotNull
     @Size(min = 1, max = 50, message = "Last name is required with maximum length of 50")
     private String lastName;
+    
+    @Size(min = 1, max = 100, message = "Full name is required with maximum length of 100")
+    @NotNull
+    private String fullName;
 
     @NotNull
     @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
@@ -37,6 +41,9 @@ public class Person {
     @NotNull
     @Size(min = 5, max = 5, message = "Zip code is required with length 5")
     private String zipCode;
+    
+    @NotNull
+    private Integer clientId;
 
     public Integer getPersonId() {
         return personId;
@@ -60,6 +67,14 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+    
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmailAddress() {
@@ -100,5 +115,13 @@ public class Person {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+    
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Client Listing</title>
+  </head>
+  <body>
+    <h1>Client Listing</h1>
+    <p><a href="/client/create">Create New Client</a></p>
+    <th:block th:unless="${#lists.isEmpty(clients)}">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Website URL</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:each="client : ${clients}">
+            <tr>
+              <td th:text="${client.name}">Company Name</td>
+              <td th:text="${client.url}">aquent.com</td>
+              <td th:text="${client.phone}">555-555-5555</td>
+              <td>
+                <a th:href="'/client/edit/' + ${client.clientId}">Edit Client</a>
+                <a th:href="'/client/delete/' + ${client.clientId}">Delete Client</a>
+              </td>
+            </tr>
+          </th:block>
+        </tbody>
+      </table>
+    </th:block>
+    <th:block th:if="${#lists.isEmpty(clients)}">
+      <p>No results found.</p>
+    </th:block>
+  </body>
+</html>
