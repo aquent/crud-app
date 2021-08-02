@@ -1,6 +1,8 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE HTML>
+<!--        SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">-->
 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,6 +15,7 @@
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email Address</th>
@@ -22,12 +25,14 @@
         <tbody>
           <th:block th:each="person : ${persons}">
             <tr>
+              <td th:text="${person.personId}">ID</td>
               <td th:text="${person.firstName}">First</td>
               <td th:text="${person.lastName}">Last</td>
               <td th:text="${person.emailAddress}">first.last@email.com</td>
               <td>
-                <a th:href="'/person/edit/' + ${person.personId}">Edit Person</a>
-                <a th:href="'/person/delete/' + ${person.personId}">Delete Person</a>
+                <a th:href="'/person/view/' + ${person.personId}">View</a>
+                <a th:href="'/person/edit/' + ${person.personId}">Edit</a>
+                <a th:href="'/person/delete/' + ${person.personId}">Delete</a>
               </td>
             </tr>
           </th:block>
@@ -37,5 +42,7 @@
     <th:block th:if="${#lists.isEmpty(persons)}">
       <p>No results found.</p>
     </th:block>
+
+    <a th:href="'/client/list'">Client List</a>
   </body>
 </html>

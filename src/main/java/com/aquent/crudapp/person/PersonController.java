@@ -136,4 +136,11 @@ public class PersonController {
         }
         return "redirect:/person/list";
     }
+
+    @GetMapping(value = "view/{personId}")
+    public ModelAndView view(@PathVariable Integer personId) {
+        ModelAndView mav = new ModelAndView("person/view");
+        mav.addObject("person", personService.readPerson(personId));
+        return mav;
+    }
 }

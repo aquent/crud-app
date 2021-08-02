@@ -1,0 +1,16 @@
+<tr xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    th:fragment="contactTableRow (clientId, personId, firstName, lastName)">
+        <td th:text="${personId}"></td>
+        <td th:text="${firstName}"></td>
+        <td th:text="${lastName}"></td>
+        <td><a th:href="'/person/view/' + ${personId}">View</a></td>
+
+        <form action="/client/remove/contact" method="post">
+                <input type="hidden" name="clientId" th:value="${clientId}"/>
+                <input type="hidden" name="personId" th:value="${personId}"/>
+                <td><input type="submit" value="Remove"/></td>
+        </form>
+</tr>
+
+

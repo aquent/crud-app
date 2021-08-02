@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="${client.companyName}"></title>
+  <body>
+    <h1 th:text="${client.companyName}"></h1>
+    <a th:text="${client.websiteUri}" th:href="${client.websiteUri}"></a>
+    <p>Phone number: </p><div th:text="${client.phoneNumber}"></div>
+    <div class="company-address-container">
+      <p>Address:</p>
+      <div th:text="${client.displayAddress()}"></div>
+    </div>
+
+<!--    Contact List -->
+    <div class="container list" id="contact-list">
+
+      <h3 th:unless="${#lists.isEmpty(contactObjArray)}">Contact List:</h3>
+
+      <table>
+        <th:block th:each="contact : ${contactObjArray}">
+          <tr th:replace="person/person_row.html :: contactTableRow(
+
+            clientId=${client.clientId},
+            personId=${contact.getPersonId()},
+            firstName=${contact.getFirstName()},
+            lastName=${contact.getLastName()}
+
+          )"></tr>
+        </th:block>
+      </table>
+    </div>
+<!--  Contact List end-->
+
+    <a th:href="'/client/list/'">Back to Client List</a>
+
+  </body>
+  </head>
+</html>

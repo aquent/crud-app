@@ -101,4 +101,9 @@ public class Person {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d, First Name: %s, Last Name: %s", personId, firstName, lastName);
+    }
 }
