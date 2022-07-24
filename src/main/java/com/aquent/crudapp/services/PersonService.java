@@ -1,8 +1,10 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.services;
+
+import com.aquent.crudapp.dtos.PersonDTO;
+import com.aquent.crudapp.models.Person;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
 
 /**
  * Person operations.
@@ -10,20 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PersonService {
 
-    /**
-     * Retrieves all of the person records.
-     *
-     * @return list of person records
-     */
-    List<Person> listPeople();
+    List<PersonDTO> listPeople();
 
     /**
      * Creates a new person record.
      *
      * @param person the values to save
-     * @return the new person ID
      */
-    Integer createPerson(Person person);
+    Integer createPerson(PersonDTO person);
 
     /**
      * Retrieves a person record by ID.
@@ -31,27 +27,27 @@ public interface PersonService {
      * @param id the person ID
      * @return the person record
      */
-    Person readPerson(Integer id);
+    PersonDTO readPerson(Integer id);
 
     /**
      * Updates an existing person record.
      *
-     * @param person the new values to save
+     * @param personDTO the new values to save
      */
-    void updatePerson(Person person);
+    PersonDTO updatePerson(PersonDTO personDTO);
 
     /**
      * Deletes a person record by ID.
      *
      * @param id the person ID
      */
-    void deletePerson(Integer id);
+    void deletePerson(long id);
 
     /**
      * Validates populated person data.
      *
-     * @param person the values to validate
+     * @param personDTO the values to validate
      * @return list of error messages
      */
-    List<String> validatePerson(Person person);
+    List<String> validatePerson(PersonDTO personDTO);
 }
