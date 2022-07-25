@@ -40,7 +40,7 @@ public class ClientController extends BaseController {
         return generateResourceGetByIdResponseOk(client);
     }
 
-    @PostMapping(path = "/create",  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity create(@Valid @RequestBody ClientDTO clientDTO) {
         List<String> errors = clientService.validateClient(clientDTO);
 
@@ -51,10 +51,11 @@ public class ClientController extends BaseController {
         if (null == savedClientDTO)
             return generateResourceCreatedResponse();
 
-        return generateResourceCreatedResponse(savedClientDTO.getId());
+        ResponseEntity response = generateResourceCreatedResponse(savedClientDTO.getId());
+        return response;
     }
 
-    @PutMapping(path = "/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientDTO> update(@Valid @RequestBody ClientDTO clientDTO) {
         List<String> errors = clientService.validateClient(clientDTO);
 

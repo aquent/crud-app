@@ -36,8 +36,17 @@ public class ClientMapperDecorator implements ClientMapper {
 
     @Override
     public Client toEntity(ClientDTO clientDTO) {
+        Client client = new Client();
+        client.setId( clientDTO.getId() );
+        client.setCompanyName( clientDTO.getCompanyName() );
+        client.setWebsiteURI( clientDTO.getWebsiteURI() );
+        client.setPhoneNumber( clientDTO.getPhoneNumber() );
+        client.setStreetAddress( clientDTO.getStreetAddress() );
+        client.setCity( clientDTO.getCity() );
+        client.setState( clientDTO.getState() );
+        client.setZipCode( clientDTO.getZipCode() );
+
         List<PersonDTO> contactDTOs = clientDTO.getContacts();
-        Client client = clientMapper.toEntity(clientDTO);
         if (null == contactDTOs || contactDTOs.isEmpty()) {
             client.setContacts(new ArrayList<>());
         } else {

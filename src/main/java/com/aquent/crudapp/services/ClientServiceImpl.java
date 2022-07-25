@@ -1,9 +1,12 @@
 package com.aquent.crudapp.services;
 
 import com.aquent.crudapp.dtos.ClientDTO;
+import com.aquent.crudapp.dtos.PersonDTO;
 import com.aquent.crudapp.errors.InvalidRequestException;
 import com.aquent.crudapp.mappers.ClientMapper;
+import com.aquent.crudapp.mappers.PersonMapper;
 import com.aquent.crudapp.models.Client;
+import com.aquent.crudapp.models.Person;
 import com.aquent.crudapp.repositories.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,12 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private PersonService personService;
+
+    @Autowired
+    private PersonMapper personMapper;
+
     @Override
     public List<ClientDTO> listClients() {
         List<Client> clients = new ArrayList<>();
@@ -50,13 +59,26 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientDTO createClient(ClientDTO clientDTO) {
         Client client = clientMapper.toEntity(clientDTO);
+
+        List<PersonDTO> contactDTOs = clientDTO.getContacts();
+        if (null != contactDTOs && !contactDTOs.isEmpty()) {
+            List<Person> contacts = contactDTOs.stream()
+                    .map(personMapper::toEntity)
+                    .collect(Collectors.toList());
+            client.setContacts(contacts);
+        } else {
+            client.setContacts(new ArrayList<>());
+        }
         try {
             client = clientRepository.save(client);
         } catch (Exception exception) {
             log.error("Error saving the client {} to the database: ", client, exception);
             return null;
         }
-        return clientMapper.toDto(client);
+        log.info("client saved with id {}", client.getId());
+        clientDTO = clientMapper.toDto(client);
+        log.info("clientDTO saved with id {}", clientDTO.getId());
+        return clientDTO;
     }
 
     @Override
@@ -74,9 +96,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDTO updateClient(ClientDTO clientDTO) {
+        List<PersonDTO> contactDTOs = clientDTO.getContacts();
+        if (null != contactDTOs && !contactDTOs.isEmpty()) {
+            List<PersonDTO> updatedContactDTOs = personService.updateContacts(contactDTOs, clientDTO.getId(), clientDTO.getCompanyName());
+            clientDTO.setContacts(updatedContactDTOs);
+        }
         Client client = clientMapper.toEntity(clientDTO);
         try {
-            client = clientRepository.saveAndFlush(client);
+            client = clientRepository.save(client);
         } catch (Exception exception) {
             log.error("Error updating the existing client {} in the database: ", client, exception);
             return null;

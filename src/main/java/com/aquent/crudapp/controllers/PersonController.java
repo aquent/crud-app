@@ -1,7 +1,6 @@
 package com.aquent.crudapp.controllers;
 
 
-import com.aquent.crudapp.dtos.ClientDTO;
 import com.aquent.crudapp.dtos.PersonDTO;
 import com.aquent.crudapp.errors.ResourceNotFoundException;
 import com.aquent.crudapp.models.Person;
@@ -38,6 +37,15 @@ public class PersonController extends BaseController {
             return generateResourceGetAllResponseOk(people);
     }
 
+//    @GetMapping(value = "/list/unemployed/{clientId}")
+//    public ResponseEntity<List<PersonDTO>> getAllUnployedPeople(@Valid @PathVariable("clientId") Integer clientId) {
+//        List<PersonDTO> people = personService.getUnemployedPeopleWithClientId(clientId);
+//        if (null == people || people.isEmpty())
+//            return generateResourceGetAllNoContentResponse(people);
+//        else
+//            return generateResourceGetAllResponseOk(people);
+//    }
+
     @GetMapping(value = "create")
     public ModelAndView create() {
         ModelAndView mav = new ModelAndView("person/create");
@@ -46,7 +54,7 @@ public class PersonController extends BaseController {
         return mav;
     }
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Person> create(@Valid @RequestBody PersonDTO personDTO) {
         List<String> errors = personService.validatePerson(personDTO);
         if  (null != errors && !errors.isEmpty())
@@ -56,20 +64,6 @@ public class PersonController extends BaseController {
         return generateResourceCreatedResponse(personId);
     }
 
-//    /**
-//     * Renders an edit form for an existing person record.
-//     *
-//     * @param personId the ID of the person to edit
-//     * @return edit view populated from the person record
-//     */
-//    @GetMapping(value = "edit/{personId}")
-//    public ModelAndView edit(@PathVariable Integer personId) {
-//        ModelAndView mav = new ModelAndView("person/edit");
-//        mav.addObject("person", personService.readPerson(personId));
-//        mav.addObject("errors", new ArrayList<String>());
-//        return mav;
-//    }
-
     @GetMapping(path = "/{id}")
     public ResponseEntity<PersonDTO> getOne(@Valid @PathVariable("id") Integer id) {
         PersonDTO personDTO = personService.readPerson(id);
@@ -77,8 +71,8 @@ public class PersonController extends BaseController {
         return generateResourceGetByIdResponseOk(personDTO);
     }
 
-    @PutMapping(value = "edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Person> edit(PersonDTO personDTO) {
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> edit(@Valid @RequestBody PersonDTO personDTO) {
         List<String> errors = personService.validatePerson(personDTO);
         if  (null != errors && !errors.isEmpty())
             return generateResourceCreatedResponse(errors);
@@ -87,21 +81,8 @@ public class PersonController extends BaseController {
         return generateResourceCreatedResponse(addedPersonDTO.getId());
     }
 
-//    /**
-//     * Renders the deletion confirmation page.
-//     *
-//     * @param personId the ID of the person to be deleted
-//     * @return delete view populated from the person record
-//     */
-//    @GetMapping(value = "delete/{personId}")
-//    public ModelAndView delete(@PathVariable long personId) {
-//        ModelAndView mav = new ModelAndView("person/delete");
-//        mav.addObject("person", personService.readPerson(personId));
-//        return mav;
-//    }
-
     @DeleteMapping(path = "/delete/{id}")
-    public ResponseEntity<String> delete(@Valid @PathVariable("id") long id) {
+    public ResponseEntity<String> delete(@Valid @PathVariable("id") Integer id) {
         personService.deletePerson(id);
         String message = String.format(PERSON_DELETED, id);
         return generateStringResponse(message);

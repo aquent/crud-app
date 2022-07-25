@@ -49,7 +49,7 @@ public abstract class BaseController<T> {
      * This method generates the required response for create operation
      * @param id
      * */
-    protected ResponseEntity<T> generateResourceCreatedResponse(Integer id) {
+    protected ResponseEntity generateResourceCreatedResponse(Integer id) {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id).toUri();

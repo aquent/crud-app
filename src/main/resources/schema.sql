@@ -1,4 +1,4 @@
-CREATE TABLE client (
+CREATE TABLE IF NOT EXISTS client (
     id int NOT NULL AUTO_INCREMENT,
     company_name varchar(50) NOT NULL,
     website_uri varchar(50) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE client (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE person (
+CREATE TABLE IF NOT EXISTS person (
     id int NOT NULL AUTO_INCREMENT,
     first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
