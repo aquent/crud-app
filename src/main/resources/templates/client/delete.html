@@ -1,0 +1,18 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Delete Client</title>
+  </head>
+  <body>
+    <h1>Delete Client</h1>
+    <p>You are about to delete the client <th:block th:text="${client.companyName}" />:  Are you sure?</p>
+    <form action="/client/delete" method="post">
+      <input type="hidden" name="clientId" th:value="${client.clientId}"/>
+      <input type="submit" name="command" value="Cancel"/>
+      <input type="submit" name="command" value="Delete"/>
+    </form>
+  </body>
+</html>

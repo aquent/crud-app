@@ -1,7 +1,9 @@
 package com.aquent.crudapp.person;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
 
 /**
  * The person entity corresponding to the "person" table in the database.
@@ -19,7 +21,7 @@ public class Person {
     private String lastName;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
+    @Email(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+", flags = Pattern.Flag.CASE_INSENSITIVE, message= "Must be a valid email with an @")
     private String emailAddress;
 
     @NotNull
@@ -37,6 +39,10 @@ public class Person {
     @NotNull
     @Size(min = 5, max = 5, message = "Zip code is required with length 5")
     private String zipCode;
+
+    private Integer clientId;
+
+    private String companyName;
 
     public Integer getPersonId() {
         return personId;
@@ -100,5 +106,21 @@ public class Person {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
